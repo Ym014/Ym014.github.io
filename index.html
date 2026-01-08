@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>座位号查询</title>
+    <!-- 关键：让页面适配手机，像小程序一样 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 90%;
+            max-width: 400px;
+            margin: 50px auto;
+            font-family: "Microsoft YaHei";
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        input {
+            width: 80%;
+            padding: 12px 15px;
+            font-size: 18px;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #e74c3c;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>座位号查询</h2>
+    <input type="text" id="nameInput" placeholder="请输入姓名（如：刘媛媛）">
+    <button onclick="checkSeat()">查询</button>
+    <div id="result"></div>
+
+    <script>
+        const seatMap = {
+            "刘媛媛": "1", "李双双": "1", "王纯": "1", "王娟娟": "1", "岳书丽": "1",
+            "郑艳丽": "1", "宗学慧": "1", "谢艳芬": "1", "武瑞玲": "1", "范钱钱": "1",
+            "岳耀强": "1", "刘畅": "2", "史音音": "2", "孙晨阳": "2", "熊家奎": "2",
+            "杨宝琪": "2", "杨珊珊": "2", "玉买尔江": "2", "雷宇梦": "2", "刘芳": "2",
+            "王浦": "2", "孙烨梓": "2", "董婧": "3", "焦学磊": "3", "宁佩佩": "3",
+            "庞琳琳": "3", "王航": "3", "贾姚": "3", "靳思怡": "3", "杨楠": "3",
+            "张芸芸": "3", "朱佳宁": "3", "吕晓惠": "3", "陈英": "4", "贾昊楠": "4",
+            "梁文婷": "4", "石欣雨": "4", "王楠": "4", "赵波": "4", "包向鑫": "4",
+            "陈冬琴": "4", "姜彩丽": "4", "梁青青": "4", "陈洁洁": "5", "陈双": "5",
+            "崔峰峰": "5", "郝亚倩": "5", "王超": "5", "王振波": "5", "岳芳芳": "5",
+            "张立宁": "5", "张英春": "5", "赵友鹏": "5"
+        };
+
+        function checkSeat() {
+            const name = document.getElementById("nameInput").value.trim();
+            const resultDiv = document.getElementById("result");
+            if (!name) {
+                resultDiv.innerText = "请输入姓名！";
+                return;
+            }
+            resultDiv.innerText = seatMap[name] ? 
+                `${name} → 座位号：${seatMap[name]}` : 
+                "未找到该姓名的座位信息";
+        }
+
+        // 支持回车键查询
+        document.getElementById("nameInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") checkSeat();
+        });
+    </script>
+</body>
+</html>
